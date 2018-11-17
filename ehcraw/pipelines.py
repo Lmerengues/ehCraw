@@ -15,10 +15,14 @@ class MyImagesPipeline(ImagesPipeline):
             yield scrapy.Request(image_url)
 
     def item_completed(self, results, item, info):
-        #image_paths = [x['path'] for ok, x in results if ok]
-        image_paths = ["/root/ehimgs/"+item["title_hash"]+"/"+str(item["id"])+".jpg" for ok, x in results if ok]
+        image_paths = [x['path'] for ok, x in results if ok]
+        #image_paths = [item["title_hash"]+"/"+str(item["id"])+".jpg" for ok, x in results if ok]
         print("images_paths:--------------------------------------------")
         print(image_paths)
+        for p in image_paths:
+            f = open("/root/mulu.txt","wb+")
+            f.write(p + "\t" + item["id"] + "\t" + item["title"])
+            f.close()
         if not image_paths:
             raise DropItem("Item contains no images")
         item['image_paths'] = image_paths
