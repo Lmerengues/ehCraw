@@ -34,8 +34,10 @@ class RucNewsSpider(scrapy.Spider):
         try:
             #os.mkdir( "C:/Users/mazy/Codes/ehimgs/"+galleryTitle, 777 )
             os.mkdir( "/root/ehimgs/"+galleryTitleHash, 777 )
-        except Exception, e:
-            print 'repr(e):\t', repr(e)
+        except Exception as e:
+            traceback.print_exc()
+            #或者得到堆栈字符串信息
+            info = traceback.format_exc()
         yield response.follow(first_img_page,meta={"id":img_id,"title":galleryTitle,"title_hash":galleryTitleHash},callback=self.parseImage)
     
     def parseImage(self, response):
