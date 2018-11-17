@@ -46,9 +46,10 @@ class RucNewsSpider(scrapy.Spider):
         first_img_page = response.css('#gdt .gdtm div a::attr("href")').extract_first()
         img_id = 1
         try:
-            os.mkdir( "C:/Users/mazy/Codes/ehimgs/"+galleryTitle, 777 )
+            #os.mkdir( "C:/Users/mazy/Codes/ehimgs/"+galleryTitle, 777 )
+            os.mkdir( "~/ehimgs/"+galleryTitle, 777 )
         except:
-            print("no need to mkdir "+"C:/Users/mazy/Codes/ehimgs/"+galleryTitle)
+            print("no need to mkdir "+"~/ehimgs/"+galleryTitle)
         yield response.follow(first_img_page,meta={"id":img_id,"title":galleryTitle},callback=self.parseImage)
     
     def parseImage(self, response):
@@ -58,7 +59,7 @@ class RucNewsSpider(scrapy.Spider):
         yield {"imgurl":imgurl}
         r = self.http.request('GET', imgurl)
         t = time.time()
-        with open("C:/Users/mazy/Codes/ehimgs/"+galleryTitle+"/"+str(img_id)+".jpg", 'wb') as f:
+        with open("~/ehimgs/"+galleryTitle+"/"+str(img_id)+".jpg", 'wb') as f:
             f.write(r.data)
         next_page = response.css('#i3 a::attr("href")').extract_first()
         yield response.follow(next_page,meta={"id":img_id+1,"title":galleryTitle},callback=self.parseImage)
