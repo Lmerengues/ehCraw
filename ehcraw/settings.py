@@ -88,5 +88,5 @@ ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-#IMAGES_STORE = 'C:/Users/mazy/Codes/ehimgs'
-IMAGES_STORE = "/root/ehimgs"
+IMAGES_STORE = '/root/ehimgs'
+#IMAGES_STORE = "C:/Users/mazy/Codes/ehimgs"

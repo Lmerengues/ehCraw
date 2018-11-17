@@ -19,29 +19,32 @@ class RucNewsSpider(scrapy.Spider):
     #def parse(self, response):
     def parse(self,response):
         for gallery in response.css(".itg tr"):
+            title_hash = str(int(time.time()))
             title = "\\n".join(gallery.css(".it5 ::text").extract()[:])
             url  = gallery.css('.it5 a::attr("href")').extract_first()
-            yield response.follow(url,meta={"title":str(int(time.time()))},callback=self.parseGallery)
+            yield response.follow(url,meta={"title_hash":title_hash,"title":title},callback=self.parseGallery)
 
     #def parseGallery(self, response):
     def parseGallery(self, response):
         galleryTitle = response.meta["title"]
+        galleryTitleHash = response.meta["title_hash"]
         first_img_page = response.css('#gdt .gdtm div a::attr("href")').extract_first()
         img_id = 1
-        #try:
-        #    os.mkdir( "C:/Users/mazy/Codes/ehimgs/"+galleryTitle, 777 )
-            #os.mkdir( "/root/ehimgs/"+galleryTitle, 777 )
-        #except :
-        #    print("no need to mkdir "+"~/ehimgs/"+galleryTitle)
-        yield response.follow(first_img_page,meta={"id":img_id,"title":galleryTitle},callback=self.parseImage)
+        try:
+            #os.mkdir( "C:/Users/mazy/Codes/ehimgs/"+galleryTitle, 777 )
+            os.mkdir( "/root/ehimgs/"+galleryTitleHash, 777 )
+        except :
+            print("no need to mkdir "+"~/ehimgs/"+galleryTitle)
+        yield response.follow(first_img_page,meta={"id":img_id,"title":galleryTitle,"title_hash":galleryTitleHash},callback=self.parseImage)
     
     def parseImage(self, response):
         galleryTitle = response.meta["title"]
+        galleryTitleHash = response.meta["title_hash"]
         img_id = response.meta["id"]
         imgurl =  response.css('#img::attr("src")').extract_first()
 
 
-        yield {"image_urls":[imgurl]}
+        yield {"image_urls":[imgurl],"title":galleryTitle,"title_hash":galleryTitleHash,"id":img_id}
 
         #yield {"imgurl":imgurl}
         #r = self.http.request('GET', imgurl)
@@ -49,7 +52,7 @@ class RucNewsSpider(scrapy.Spider):
         #with open("/root/ehimgs/"+galleryTitle+"/"+str(img_id)+".jpg", 'wb') as f:
         #    f.write(r.data)
         next_page = response.css('#i3 a::attr("href")').extract_first()
-        yield response.follow(next_page,meta={"id":img_id+1,"title":galleryTitle},callback=self.parseImage)
+        yield response.follow(next_page,meta={"id":img_id+1,"title":galleryTitle,"title_hash":galleryTitleHash},callback=self.parseImage)
 
         '''
         for teacher in response.css('div.card'):             
