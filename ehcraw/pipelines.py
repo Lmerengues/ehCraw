@@ -12,8 +12,8 @@ class MyImagesPipeline(ImagesPipeline):
 
     def get_media_requests(self, item, info):
         for image_url in item['image_urls']:
-            print("++++++++++++++++++++++++++++++++--------------------------------------------")
-            print(item)
+            #print("++++++++++++++++++++++++++++++++--------------------------------------------")
+            #print(item)
             yield scrapy.Request(image_url)
 
     def item_completed(self, results, item, info):
@@ -23,7 +23,7 @@ class MyImagesPipeline(ImagesPipeline):
         print(image_paths)
         for p in image_paths:
             f = open("/root/mulu.txt","wb+")
-            f.write(p + "\t" + item["id"] + "\t" + item["title"] + "\n")
+            f.write(p + "\t" + str(item["id"]) + "\t" + item["title"] + "\n")
             f.close()
         if not image_paths:
             raise DropItem("Item contains no images")
