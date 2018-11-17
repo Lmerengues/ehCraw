@@ -15,7 +15,7 @@ class MyImagesPipeline(ImagesPipeline):
             yield scrapy.Request(image_url)
 
     def item_completed(self, results, item, info):
-        image_paths = [item["title_hash"]+"/"+item["title_hash"]+".jpg" for ok, x in results if ok]
+        image_paths = [item["title_hash"]+"/"+str(item["id"])+".jpg" for ok, x in results if ok]
         if not image_paths:
             raise DropItem("Item contains no images")
         item['image_paths'] = image_paths
