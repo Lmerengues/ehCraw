@@ -4,6 +4,7 @@ import scrapy
 import urllib3
 import time
 import os
+import re
 
 class RucNewsSpider(scrapy.Spider):
     name = "ehentaiSearch"
@@ -38,7 +39,7 @@ class RucNewsSpider(scrapy.Spider):
         for gallery in response.css(".itg tr"):
             title = "\\n".join(gallery.css(".it5 ::text").extract()[:])
             url  = gallery.css('.it5 a::attr("href")').extract_first()
-            yield response.follow(url,meta={"title":re.sub('[\/:*?"<>|]','-',title)},callback=self.parseGallery)
+            yield response.follow(url,meta={"title":str(int(time.time()))},callback=self.parseGallery)
 
     #def parseGallery(self, response):
     def parseGallery(self, response):
@@ -47,8 +48,8 @@ class RucNewsSpider(scrapy.Spider):
         img_id = 1
         try:
             #os.mkdir( "C:/Users/mazy/Codes/ehimgs/"+galleryTitle, 777 )
-            os.mkdir( "~/ehimgs/"+galleryTitle, 777 )
-        except:
+            os.mkdir( "/root/ehimgs/"+galleryTitle, 777 )
+        except :
             print("no need to mkdir "+"~/ehimgs/"+galleryTitle)
         yield response.follow(first_img_page,meta={"id":img_id,"title":galleryTitle},callback=self.parseImage)
     
@@ -59,7 +60,7 @@ class RucNewsSpider(scrapy.Spider):
         yield {"imgurl":imgurl}
         r = self.http.request('GET', imgurl)
         t = time.time()
-        with open("~/ehimgs/"+galleryTitle+"/"+str(img_id)+".jpg", 'wb') as f:
+        with open("/root/ehimgs/"+galleryTitle+"/"+str(img_id)+".jpg", 'wb') as f:
             f.write(r.data)
         next_page = response.css('#i3 a::attr("href")').extract_first()
         yield response.follow(next_page,meta={"id":img_id+1,"title":galleryTitle},callback=self.parseImage)
