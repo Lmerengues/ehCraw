@@ -16,6 +16,8 @@ class MyImagesPipeline(ImagesPipeline):
 
     def item_completed(self, results, item, info):
         image_paths = [item["title_hash"]+"/"+str(item["id"])+".jpg" for ok, x in results if ok]
+        print("images_paths:--------------------------------------------")
+        print(image_paths)
         if not image_paths:
             raise DropItem("Item contains no images")
         item['image_paths'] = image_paths
