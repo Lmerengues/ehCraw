@@ -6,6 +6,7 @@ import time
 import os
 import re
 from ..items import EhcrawItem
+import traceback
 
 class RucNewsSpider(scrapy.Spider):
     name = "ehentaiSearch"
@@ -33,8 +34,8 @@ class RucNewsSpider(scrapy.Spider):
         try:
             #os.mkdir( "C:/Users/mazy/Codes/ehimgs/"+galleryTitle, 777 )
             os.mkdir( "/root/ehimgs/"+galleryTitleHash, 777 )
-        except :
-            print("no need to mkdir "+"~/ehimgs/"+galleryTitle)
+        except Exception, e:
+            print 'repr(e):\t', repr(e)
         yield response.follow(first_img_page,meta={"id":img_id,"title":galleryTitle,"title_hash":galleryTitleHash},callback=self.parseImage)
     
     def parseImage(self, response):
