@@ -67,7 +67,7 @@ ROBOTSTXT_OBEY = False
 #ITEM_PIPELINES = {
 #    'ehcraw.pipelines.EhcrawPipeline': 300,
 #}
-ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
+ITEM_PIPELINES = {'ehcraw.pipelines.MyImagesPipeline': 300}
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
