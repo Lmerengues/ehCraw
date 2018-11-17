@@ -7,8 +7,8 @@
 
 import scrapy
 
-
 class EhcrawItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+
+    # ... other item fields ...
+    image_urls = scrapy.Field()
+    images = scrapy.Field()
