@@ -40,8 +40,6 @@ class RucNewsSpider(scrapy.Spider):
         img_id = response.meta["id"]
         imgurl =  response.css('#img::attr("src")').extract_first()
 
-        imgitem = EhcrawItem()
-        imgitem.image_urls = imgurl
 
         yield {"image_urls":imgurl}
 
