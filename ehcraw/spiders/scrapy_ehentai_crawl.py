@@ -31,13 +31,17 @@ class RucNewsSpider(scrapy.Spider):
         galleryTitleHash = response.meta["title_hash"]
         first_img_page = response.css('#gdt .gdtm div a::attr("href")').extract_first()
         img_id = 1
-        try:
-            #os.mkdir( "C:/Users/mazy/Codes/ehimgs/"+galleryTitle, 777 )
-            os.mkdir( "/root/ehimgs/"+galleryTitleHash, 777 )
-        except Exception as e:
-            traceback.print_exc()
+        #if os.path.isdir("C:/Users/mazy/Codes/ehimgs/"+galleryTitleHash):
+        #    pass
+        #else:
+        #    os.mkdir("C:/Users/mazy/Codes/ehimgs/"+galleryTitleHash)
+        #try:
+        #    os.mkdir( "C:/Users/mazy/Codes/ehimgs/"+galleryTitleHash, 777 )
+            #os.mkdir( "/root/ehimgs/"+galleryTitleHash, 777 )
+        #except Exception as e:
+        #    traceback.print_exc()
             #或者得到堆栈字符串信息
-            info = traceback.format_exc()
+        #    info = traceback.format_exc()
         yield response.follow(first_img_page,meta={"id":img_id,"title":galleryTitle,"title_hash":galleryTitleHash},callback=self.parseImage)
     
     def parseImage(self, response):
