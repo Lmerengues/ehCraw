@@ -11,7 +11,7 @@ from scrapy.exceptions import DropItem
 
 class MyImagesPipeline(ImagesPipeline):
     os_my = "linux"
-    mulu_dirs = {"windows":"C:/Users/mazy/Codes/ehimgs/mulu.txt","linux":"/home/root/ehimgs/mulu.txt"}
+    mulu_dirs = {"windows":"C:/Users/mazy/Codes/ehimgs/mulu.txt","linux":"/root/ehimgs/mulu.txt"}
     def get_media_requests(self, item, info):
         for image_url in item['image_urls']:
             #print("++++++++++++++++++++++++++++++++--------------------------------------------")
