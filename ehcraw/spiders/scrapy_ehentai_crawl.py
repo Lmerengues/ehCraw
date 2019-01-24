@@ -28,7 +28,9 @@ class RucNewsSpider(scrapy.Spider):
          "https://e-hentai.org/g/1321689/70801da68b/",
          "https://e-hentai.org/g/1318960/0b44933c6d/",
          "https://e-hentai.org/g/1320417/9c87623e93/",
-         "https://e-hentai.org/g/832467/b1c82a169b/"
+         "https://e-hentai.org/g/832467/b1c82a169b/",
+         "https://e-hentai.org/g/450665/07e6985053/",
+         "https://e-hentai.org/g/339308/55c749d3f6/",
     ]
     http = urllib3.PoolManager()
 
