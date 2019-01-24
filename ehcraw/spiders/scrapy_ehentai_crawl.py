@@ -1,4 +1,4 @@
-# encoding: utf-8
+﻿# encoding: utf-8
 
 import scrapy
 import urllib3
@@ -12,13 +12,23 @@ class RucNewsSpider(scrapy.Spider):
     name = "ehentaiSearch"
     start_urls = [
         #'http://info.ruc.edu.cn/academic_faculty.php',
-        'https://e-hentai.org/?f_doujinshi=0&f_manga=0&f_artistcg=0&f_gamecg=0&f_western=0&f_non-h=0&f_imageset=0&f_cosplay=0&f_asianporn=0&f_misc=0&f_search=momoya+dynasty+warrior+chinese&f_apply=Apply+Filter'
+        #'https://e-hentai.org/?f_doujinshi=0&f_manga=0&f_artistcg=0&f_gamecg=0&f_western=0&f_non-h=0&f_imageset=0&f_cosplay=0&f_asianporn=0&f_misc=0&f_search=momoya+dynasty+warrior+chinese&f_apply=Apply+Filter'
         #"https://e-hentai.org/g/1194743/dbcc0dcb47/"
+        #"https://e-hentai.org/g/830143/9f31b45815/"
+         #"https://e-hentai.org/g/888847/35468d953b/",
+         "https://e-hentai.org/g/137236/ac57f7cfe6/",
+         "https://e-hentai.org/g/437851/2817853b84/",
+         "https://e-hentai.org/g/265258/bc40736834/",
+         "https://e-hentai.org/g/196644/bba07b6ee7/",
+         "https://e-hentai.org/g/75951/01967ebd19/",
+         "https://e-hentai.org/g/54422/0cfce4505f/",
+         "https://e-hentai.org/g/54342/3104cf5515/",
+         "https://e-hentai.org/g/1228631/8c0f5d3c7a/"
     ]
     http = urllib3.PoolManager()
 
     #def parse(self, response):
-    def parse(self,response):
+    def parse0(self,response):
         for gallery in response.css(".itg tr"):
             title_hash = str(int(time.time()))
             title = "\\n".join(gallery.css(".it5 ::text").extract()[:])
@@ -26,9 +36,12 @@ class RucNewsSpider(scrapy.Spider):
             yield response.follow(url,meta={"title_hash":title_hash,"title":title},callback=self.parseGallery)
 
     #def parseGallery(self, response):
-    def parseGallery(self, response):
-        galleryTitle = response.meta["title"]
-        galleryTitleHash = response.meta["title_hash"]
+    def parse(self, response):
+        #galleryTitle = response.meta["title"]
+        #galleryTitleHash = response.meta["title_hash"]
+
+        galleryTitle = re.sub('[\/:*?"<>|]','-',response.css("#gn::text").extract_first())
+        galleryTitleHash = str(int(time.time()))
         first_img_page = response.css('#gdt .gdtm div a::attr("href")').extract_first()
         img_id = 1
         #if os.path.isdir("C:/Users/mazy/Codes/ehimgs/"+galleryTitleHash):
