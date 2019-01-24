@@ -16,14 +16,19 @@ class RucNewsSpider(scrapy.Spider):
         #"https://e-hentai.org/g/1194743/dbcc0dcb47/"
         #"https://e-hentai.org/g/830143/9f31b45815/"
          #"https://e-hentai.org/g/888847/35468d953b/",
-         "https://e-hentai.org/g/137236/ac57f7cfe6/",
-         "https://e-hentai.org/g/437851/2817853b84/",
-         "https://e-hentai.org/g/265258/bc40736834/",
-         "https://e-hentai.org/g/196644/bba07b6ee7/",
-         "https://e-hentai.org/g/75951/01967ebd19/",
-         "https://e-hentai.org/g/54422/0cfce4505f/",
-         "https://e-hentai.org/g/54342/3104cf5515/",
-         "https://e-hentai.org/g/1228631/8c0f5d3c7a/"
+         #"https://e-hentai.org/g/137236/ac57f7cfe6/",
+         #"https://e-hentai.org/g/437851/2817853b84/",
+         #"https://e-hentai.org/g/265258/bc40736834/",
+         #"https://e-hentai.org/g/196644/bba07b6ee7/",
+         #"https://e-hentai.org/g/75951/01967ebd19/",
+         #"https://e-hentai.org/g/54422/0cfce4505f/",
+         #"https://e-hentai.org/g/54342/3104cf5515/",
+         #"https://e-hentai.org/g/1228631/8c0f5d3c7a/"
+         "https://e-hentai.org/g/1340710/e0b57363de/",
+         "https://e-hentai.org/g/1321689/70801da68b/",
+         "https://e-hentai.org/g/1318960/0b44933c6d/",
+         "https://e-hentai.org/g/1320417/9c87623e93/",
+         "https://e-hentai.org/g/832467/b1c82a169b/"
     ]
     http = urllib3.PoolManager()
 
